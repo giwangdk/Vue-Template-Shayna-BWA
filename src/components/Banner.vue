@@ -14,7 +14,7 @@
                                         <a href="#"><i class="icon_bag_alt"></i></a>
                                     </li>
                                     <li class="quick-view">
-                                        <router-link to="/product"  href="#">+ Quick View</router-link></li>
+                                        <router-link :to="'/product/'+itemProduct.id">+ Quick View</router-link></li>
                                 </ul>
                             </div>
                             <div class="pi-text">

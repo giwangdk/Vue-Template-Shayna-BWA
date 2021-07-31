@@ -10,7 +10,7 @@
                             <div class="pi-pic">
                                 <img :src="itemProduct.galleries[0].photo" alt="" />
                                 <ul>
-                                    <li class="w-icon active">
+                                    <li class="w-icon active"  @click="saveKeranjang(itemProduct.id, itemProduct.name, itemProduct.price, itemProduct.galleries[0].photo)">
                                         <a href="#"><i class="icon_bag_alt"></i></a>
                                     </li>
                                     <li class="quick-view">
@@ -51,10 +51,32 @@ export default {
     },
     data(){
         return{
-            products:[]
+            products:[],
+            keranjangUser : []
         }
     },
+    methods:{
+        saveKeranjang(idProduct, nameProduct, priceProduct, photoProduct){
+        var productStored = {
+            "id" : idProduct,
+            "name": nameProduct,
+            "price" : priceProduct,
+            "photo" : photoProduct
+        }
+
+        this.keranjangUser.push(productStored);
+        const parsed = JSON.stringify(this.keranjangUser);
+        localStorage.setItem('keranjangUser', parsed)
+    }
+    },
     mounted(){
+        if(localStorage.getItem('keranjangUser')){
+                try{
+                    this.keranjangUser = JSON.parse(localStorage.getItem('keranjangUser'))
+                }catch(e){
+                localStorage.removeItem('keranjangUser')
+            }
+          }
         axios
         .get("http://127.0.0.1:8000/api/products")
         .then(res=>(this.products =res.data.data.data))

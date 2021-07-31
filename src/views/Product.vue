@@ -89,7 +89,7 @@ export default {
         return{
             photo_default:"",
             productDetails : [],
-            kerangjangUser : []
+            keranjangUser : []
         }
     },
     
@@ -111,7 +111,7 @@ export default {
         }
 
         this.kerangjangUser.push(productStored);
-        const parsed = JSON.stringify(this.kerangjangUser);
+        const parsed = JSON.stringify(this.keranjangUser);
         localStorage.setItem('keranjangUser', parsed)
     }
     },

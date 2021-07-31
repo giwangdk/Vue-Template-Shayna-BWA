@@ -19,7 +19,7 @@
 				<div class="col-lg-2 col-md-2">
 				<div class="logo">
 					<a href="./index.html">
-					<img src="img/logo_website_shayna.png" alt="" />
+					<img src="img/logo_website_shayna.png" alt="" class="photo-item"/>
 					</a>
 				</div>
 				</div>
@@ -30,40 +30,32 @@
 					Keranjang Belanja &nbsp;
 					<a href="#">
 						<i class="icon_bag_alt"></i>
-						<span>3</span>
+						<span>{{keranjangUser.length}}</span>
 					</a>
 					<div class="cart-hover">
 						<div class="select-items">
 						<table>
-							<tbody>
-							<tr>
+							<tbody v-if="keranjangUser.length>0">
+							
+							<tr v-for="keranjang in keranjangUser" :key="keranjang.id">
 								<td class="si-pic">
-								<img src="img/select-product-1.jpg" alt="" />
+								<img :src="keranjang.photo" alt="" />
 								</td>
 								<td class="si-text">
 								<div class="product-selected">
-									<p>$60.00 x 1</p>
-									<h6>Kabino Bedside Table</h6>
+									<p>{{keranjang.price}} x 1</p>
+									<h6>{{keranjang.name}}</h6>
 								</div>
 								</td>
 								<td class="si-close">
 								<i class="ti-close"></i>
 								</td>
 							</tr>
-							<tr>
-								<td class="si-pic">
-								<img src="img/select-product-2.jpg" alt="" />
-								</td>
-								<td class="si-text">
-								<div class="product-selected">
-									<p>$60.00 x 1</p>
-									<h6>Kabino Bedside Table</h6>
-								</div>
-								</td>
-								<td class="si-close">
-								<i class="ti-close"></i>
-								</td>
-							</tr>
+							</tbody>
+							<tbody v-else>
+								<tr>
+									<td>Keranjang Kosong</td>
+								</tr>
 							</tbody>
 						</table>
 						</div>
@@ -88,6 +80,27 @@
 
 <script>
 export default {
-	name:'HeaderShayna'
+	name:'HeaderShayna',
+
+	data(){
+        return{
+            keranjangUser : []
+        }
+    },
+    mounted(){
+		if(localStorage.getItem('keranjangUser')){
+                try{
+                    this.keranjangUser = JSON.parse(localStorage.getItem('keranjangUser'))
+                }catch(e){
+                localStorage.removeItem('keranjangUser')
+            }
+          }
+	}
 }
 </script>
+<style scoped>
+.photo-item{
+	width:80px;
+	height:80px;
+	}
+</style>

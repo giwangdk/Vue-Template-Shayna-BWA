@@ -61,7 +61,7 @@
 						</div>
 						<div class="select-total">
 						<span>total:</span>
-						<h5>$120.00</h5>
+						<h5>${{totalHarga}}.00</h5>
 						</div>
 						<div class="select-button">
 						
@@ -104,6 +104,13 @@ export default {
                 localStorage.removeItem('keranjangUser')
             }
           }
+	},
+	computed:{
+		totalHarga(){
+			return this.keranjangUser.reduce(function(items, data){
+				return items + data.price;
+			},0)
+		}
 	}
 }
 </script>
